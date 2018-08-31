@@ -1,0 +1,6 @@
+# constantes da janela
+DISPLAY_SIZE_X = 900
+DISPLAY_SIZE_Y = 650
+
+GAME_TIME = 30
+BRAIN_RESPAWN_BORDER = 50
