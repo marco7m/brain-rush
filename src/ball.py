@@ -10,7 +10,7 @@ class Ball:
     def set_random_position(self,hero):
         while True:
             pos_x = random.randint(0,CONST.DISPLAY_SIZE_X)
-            pos_y = random.randint(0,CONST.DISPLAY_SIZE_Y)
+            pos_y = random.randint(60,CONST.DISPLAY_SIZE_Y)
             if (pos_x < hero.pos.x or pos_x > (hero.pos.x + hero.width)) and (pos_y < hero.pos.y or pos_y > (hero.pos.y + hero.height)):
                 # faz ele ficar dentro da borda pré estabelecida
                 if (pos_x > CONST.BRAIN_RESPAWN_BORDER and

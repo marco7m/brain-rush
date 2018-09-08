@@ -1,11 +1,13 @@
 # -*- encoding:utf-8 -*-
 import pygame
+import time
 from src.position import Position
 from src.ball import Ball
 import src.const as CONST
 
 class Zombie(pygame.sprite.Sprite):
     def __init__(self):
+
         super(Zombie, self).__init__()
         self.images_esq = []
         self.images_esq.append(pygame.image.load("img/zumbi_esquerdo_fechado.png"))
@@ -50,14 +52,11 @@ class Zombie(pygame.sprite.Sprite):
         if self.pos.x < CONST.DISPLAY_SIZE_X - self.width:
             self.pos.x += self.speed
     def move_up(self):
-        if self.pos.y > 45:
+        if self.pos.y > 60:
             self.pos.y -= self.speed
     def move_down(self):
         if self.pos.y < CONST.DISPLAY_SIZE_Y - self.height:
             self.pos.y += self.speed
-
-
-
 
     def update(self):
         self.rect[0] = self.pos.x
@@ -72,3 +71,26 @@ class Zombie(pygame.sprite.Sprite):
             if self.index >= len(self.images):
                 self.index = 0
             self.image = self.images[self.index]
+
+    def zombie_error(self):
+        erro = pygame.mixer.Sound('src/sounds/erro.wav')
+        erro.play()
+
+    def human_error(self):
+        erro = pygame.mixer.Sound('src/sounds/human_error.wav')
+        erro.play()
+        time.sleep(1)
+
+    def bite(self):
+        erro = pygame.mixer.Sound('src/sounds/bite1.wav')
+        erro.play()
+
+    def wrong_way(self, number):
+        if number == 0:
+            return self.move_up()
+        elif number == 1:
+            return self.move_down()
+        elif number == 2:
+            return self.move_right()
+        else:
+            return self.move_left()
