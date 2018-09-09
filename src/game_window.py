@@ -17,6 +17,9 @@ class GameWindow:
         pygame.font.init()
         #pygame.mixer.init()
 
+        # coloca o background
+        background = pygame.image.load("img/retangulo.png")
+
         game_font = pygame.font.SysFont('Comic Sans MS', 45)
         placar_font = pygame.font.SysFont('Comic Sans MS', 20)
 
@@ -133,6 +136,8 @@ class GameWindow:
             # pega as teclas pressionadas
             pressed = pygame.key.get_pressed()
             #print(mirror)
+            if pressed[pygame.K_ESCAPE]:
+                quit(0)
 
             if bug:
                 if pressed[pygame.K_UP]:
@@ -183,6 +188,7 @@ class GameWindow:
                 time_text_surface = game_font.render(str(time_left), False,(255,255,255))
 
             screen.fill((0, 0, 0))
+            screen.blit(background,(0,0))
             hero_group.update()
             hero_group.draw(screen)
             screen.blit(get_image('img/cerebro.png'), (ball.pos.x, ball.pos.y))
