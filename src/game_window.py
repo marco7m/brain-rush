@@ -30,8 +30,6 @@ class GameWindow:
         name = "Carlos"
         placar_text_surface = placar_font.render('Melhor Jogador: ' + name + ' - '+str(placar), False, (0,0,255))
 
-       
-
         def get_image(path):
             global _image_library
             image = _image_library.get(path)
@@ -41,25 +39,18 @@ class GameWindow:
                 _image_library[path] = image
             return image
 
-
         # variaveis do heroi
         hero = Zombie()
         hero_group = pygame.sprite.Group(hero)
 
         # variaveis da bolinha
-        #ball_position = get_ball_positon()
         ball = Ball()
         ball.set_random_position(hero)
-
-        # cria o timer
-        #time_left = CONST.GAME_TIME
-        #time_text_surface = game_font.render(str(time_left), False,(0,0,0))
-        #DEC_TIME = 1
-        #pygame.time.set_timer(DEC_TIME, 1000)
 
         #Timer Novo (bug do mouse)
         start_ticks = pygame.time.get_ticks()
         time_left = CONST.GAME_TIME
+
         count_errors_bug = 0
         mirror = False
         bug = False
