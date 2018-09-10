@@ -57,7 +57,8 @@ class GameWindow:
         time_text_surface = game_font.render(str(time_left), False,(255,255,255))
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
+#        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
+        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y))
         done = False
         clock = pygame.time.Clock()
 
@@ -69,6 +70,10 @@ class GameWindow:
                 if event.type == pygame.USEREVENT:
                     if time_left > 0:
                         seconds=(pygame.time.get_ticks()-start_ticks)/1000
+
+                        #debug
+                        if seconds == 3:
+                            hero.random_movement()
 
                         # só tem possibilidade de bug depois de 8 segundos de jogo
                         if seconds > 8:
@@ -148,25 +153,13 @@ class GameWindow:
 #                    hero.wrong_way(opc3)
             else:
                 if pressed[pygame.K_UP]:
-                    if hero.RANDOM_MOVEMENT:
-                        hero.random_movement()
-                    else:
-                        hero.move_up()
+                    hero.move_up()
                 elif pressed[pygame.K_DOWN]:
-                    if hero.RANDOM_MOVEMENT:
-                        hero.random_movement()
-                    else:
-                        hero.move_down()
+                    hero.move_down()
                 elif pressed[pygame.K_LEFT]:
-                    if hero.RANDOM_MOVEMENT:
-                        hero.random_movement()
-                    else:
-                        hero.move_left()
+                    hero.move_left()
                 elif pressed[pygame.K_RIGHT]:
-                    if hero.RANDOM_MOVEMENT:
-                        hero.random_movement()
-                    else:
-                        hero.move_right()
+                    hero.move_right()
             # checa se a bola está dentro do heroi
             if hero.has_ball_inside(ball):
                 score += 1

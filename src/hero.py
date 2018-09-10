@@ -44,43 +44,50 @@ class Zombie(pygame.sprite.Sprite):
         
         self.RANDOM_MOVEMENT = False
         self.start_random_movement = 0
+        self.RANDOM_MOVING = False
+        self.start_random_moving = 0
 
 
     def has_ball_inside(self, ball):
         if (ball.pos.x > self.pos.x and ball.pos.x < (self.pos.x + self.width)) and (ball.pos.y > self.pos.y and ball.pos.y < (self.pos.y + self.height)):
             return True
 
-    def move_left(self):
-        self.images = self.images_esq
-        self.image = self.images[self.index]
-        if self.pos.x > 0:
-            self.pos.x -= self.speed
-    def move_right(self):
-        self.images = self.images_dir
-        self.image = self.images[self.index]
-        if self.pos.x < CONST.DISPLAY_SIZE_X - self.width:
-            self.pos.x += self.speed
-    def move_up(self):
-        if self.pos.y > 60:
-            self.pos.y -= self.speed
-    def move_down(self):
-        if self.pos.y < CONST.DISPLAY_SIZE_Y - self.height:
-            self.pos.y += self.speed
-
-    def move_random_direction(self):
-        ran_dir = random.randint(0,3)
-        if ran_dir == 0:
+    def move_left(self, internal_order=False):
+        if self.RANDOM_MOVEMENT: 
             self.RANDOM_MOVEMENT = False
-            self.move_left()
-        elif ran_dir == 1:
+            self.RANDOM_MOVING = True
+            self.start_random_moving = pygame.time.get_ticks()
+        elif not self.RANDOM_MOVING or internal_order:
+            self.images = self.images_esq
+            self.image = self.images[self.index]
+            if self.pos.x > 0:
+                self.pos.x -= self.speed
+    def move_right(self, internal_order=False):
+        if self.RANDOM_MOVEMENT: 
             self.RANDOM_MOVEMENT = False
-            self.move_right()
-        elif ran_dir == 2:
+            self.RANDOM_MOVING = True
+            self.start_random_moving = pygame.time.get_ticks()
+        elif not self.RANDOM_MOVING or internal_order:
+            self.images = self.images_dir
+            self.image = self.images[self.index]
+            if self.pos.x < CONST.DISPLAY_SIZE_X - self.width:
+                self.pos.x += self.speed
+    def move_up(self, internal_order=False):
+        if self.RANDOM_MOVEMENT: 
             self.RANDOM_MOVEMENT = False
-            self.move_up()
-        elif ran_dir == 3:
+            self.RANDOM_MOVING = True
+            self.start_random_moving = pygame.time.get_ticks()
+        elif not self.RANDOM_MOVING or internal_order:
+            if self.pos.y > 60:
+                self.pos.y -= self.speed
+    def move_down(self, internal_order=False):
+        if self.RANDOM_MOVEMENT: 
             self.RANDOM_MOVEMENT = False
-            self.move_down()
+            self.RANDOM_MOVING = True
+            self.start_random_moving = pygame.time.get_ticks()
+        elif not self.RANDOM_MOVING or internal_order:
+            if self.pos.y < CONST.DISPLAY_SIZE_Y - self.height:
+                self.pos.y += self.speed
 
     def update(self):
         self.rect[0] = self.pos.x
@@ -94,8 +101,28 @@ class Zombie(pygame.sprite.Sprite):
 
         # faz ele sair do modo random_movement depois de um tempo
         if self.RANDOM_MOVEMENT:
-            if pygame.time.get_ticks() - self.start_random_movement > 2000:
+            if pygame.time.get_ticks() - self.start_random_movement > 3000:
                 self.RANDOM_MOVEMENT = False
+
+        if self.RANDOM_MOVING:
+            print "moveu"
+            print self.RANDOM_MOVEMENT
+            print self.RANDOM_MOVING
+            if pygame.time.get_ticks() - self.start_random_moving > 500:
+                self.RANDOM_MOVING = False
+                print "parou moving"
+            elif self.drawn_rand_direction == 0:
+                print "0"
+                self.move_up(internal_order=True)
+            elif self.drawn_rand_direction == 1:
+                print "1"
+                self.move_down(internal_order=True)
+            elif self.drawn_rand_direction == 2:
+                print "2"
+                self.move_left(internal_order=True)
+            elif self.drawn_rand_direction == 3:
+                print "3"
+                self.move_right(internal_order=True)
 
         # faz os frames se alternarem
         self.delay_time_index += 1
@@ -115,6 +142,7 @@ class Zombie(pygame.sprite.Sprite):
 
     def random_movement(self):
         self.RANDOM_MOVEMENT = True
+        self.drawn_rand_direction = random.randint(0,3)
         self.start_random_movement = pygame.time.get_ticks()
 
     def zombie_error(self):
