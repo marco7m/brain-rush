@@ -2,17 +2,20 @@
 import os
 import pygame
 import random
+import datetime
+import pandas as pd
 from src.position import Position
 from src.hero import Zombie
 from src.ball import Ball
 import src.const as CONST
+import src.data_harvest as data_harvest
 
 
 _image_library = {}
 
 class GameWindow:
     def __init__(self):
-        
+       
         pygame.font.init()
 
         # coloca o background
@@ -57,17 +60,40 @@ class GameWindow:
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
         screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
+#        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y))
         done = False
         clock = pygame.time.Clock()
 
         # loop principal
         while not done:
             for event in pygame.event.get():
+                print event
                 if event.type == pygame.QUIT:
                     exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN or event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    if event.key == pygame.K_UP:
+                        data_harvest.pressed_keys.append(['PRESS_K_UP',datetime.datetime.now()])
                         hero.shuffle_random_direction()
+                    if event.key == pygame.K_DOWN: 
+                        data_harvest.pressed_keys.append(['PRESS_K_DOWN',datetime.datetime.now()])
+                        hero.shuffle_random_direction()
+                    if event.key == pygame.K_LEFT: 
+                        data_harvest.pressed_keys.append(['PRESS_K_LEFT',datetime.datetime.now()])
+                        hero.shuffle_random_direction()
+                    if event.key == pygame.K_RIGHT:
+                        data_harvest.pressed_keys.append(['PRESS_K_RIGHT',datetime.datetime.now()])
+                        hero.shuffle_random_direction()
+
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_UP:
+                        data_harvest.pressed_keys.append(['RELEASE_K_UP',datetime.datetime.now()])
+                    if event.key == pygame.K_DOWN: 
+                        data_harvest.pressed_keys.append(['RELEASE_K_DOWN',datetime.datetime.now()])
+                    if event.key == pygame.K_LEFT: 
+                        data_harvest.pressed_keys.append(['RELEASE_K_LEFT',datetime.datetime.now()])
+                    if event.key == pygame.K_RIGHT:
+                        data_harvest.pressed_keys.append(['RELEASE_K_RIGHT',datetime.datetime.now()])
+
                 if event.type == pygame.USEREVENT:
                     if time_left > 0:
                         seconds=(pygame.time.get_ticks()-start_ticks)/1000
@@ -125,6 +151,12 @@ class GameWindow:
                         time_left -= 1
                     else:
                         done = True
+                        
+                        # salva os dados coletados
+                        pd.DataFrame(data_harvest.pressed_keys).to_csv("data/pressed_keys.csv",index=None)
+                        pd.DataFrame(data_harvest.random_events).to_csv("data/random_events.csv",index=None)
+                        pd.DataFrame(data_harvest.hero_movement).to_csv("data/hero_movement.csv",index=None)
+ 
             
             # pega as teclas pressionadas
             pressed = pygame.key.get_pressed()
@@ -143,6 +175,7 @@ class GameWindow:
                     hero.move_right()
             # checa se a bola está dentro do heroi
             if hero.has_ball_inside(ball):
+                data_harvest.random_events.append(['ZOMBIE_EATS',datetime.datetime.now()])
                 score += 1
                 score_text_surface = game_font.render('Pontos: ' + str(score), False,(255,255,255))
                 hero.bite()
