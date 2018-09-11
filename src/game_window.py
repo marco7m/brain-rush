@@ -16,7 +16,7 @@ class GameWindow:
         pygame.font.init()
 
         # coloca o background
-        background = pygame.image.load("img/cemiterio.jpg")
+        background = pygame.image.load("img/background2.jpg")
 
         game_font = pygame.font.SysFont('Comic Sans MS', 45)
         placar_font = pygame.font.SysFont('Comic Sans MS', 20)
