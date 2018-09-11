@@ -14,7 +14,6 @@ class GameWindow:
     def __init__(self):
         
         pygame.font.init()
-        #pygame.mixer.init()
 
         # coloca o background
         background = pygame.image.load("img/cemiterio.jpg")
@@ -57,8 +56,7 @@ class GameWindow:
         time_text_surface = game_font.render(str(time_left), False,(255,255,255))
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-#        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
-        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y))
+        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
         done = False
         clock = pygame.time.Clock()
 
