@@ -67,7 +67,6 @@ class GameWindow:
         # loop principal
         while not done:
             for event in pygame.event.get():
-                print event
                 if event.type == pygame.QUIT:
                     exit(0)
                 if event.type == pygame.KEYDOWN:
@@ -153,9 +152,9 @@ class GameWindow:
                         done = True
                         
                         # salva os dados coletados
-                        pd.DataFrame(data_harvest.pressed_keys).to_csv("data/pressed_keys.csv",index=None)
-                        pd.DataFrame(data_harvest.random_events).to_csv("data/random_events.csv",index=None)
-                        pd.DataFrame(data_harvest.hero_movement).to_csv("data/hero_movement.csv",index=None)
+                        pd.DataFrame(data_harvest.pressed_keys).to_csv("data/pressed_keys.csv",index=None,header=['PRESSED_KEY','TIME'])
+                        pd.DataFrame(data_harvest.random_events).to_csv("data/random_events.csv",index=None,header=['RANDOM_EVENT','TIME'])
+                        pd.DataFrame(data_harvest.hero_movement).to_csv("data/hero_movement.csv",index=None,header=['DIRECTION','SPEED','TIME'])
  
             
             # pega as teclas pressionadas
