@@ -77,12 +77,12 @@ class GameWindow:
                         # configura as probabilidades de bug
                         if seconds < 8:
                             error_probability = 0
-                        elif seconds < 15:
-                            error_probability = random.randint(0,15)
                         elif seconds < 25:
-                            error_probability = random.randint(0,10)
+                            error_probability = random.randint(0,15)
+                        elif seconds < 40:
+                            error_probability = random.randint(0,11)
                         else:
-                            error_probability = random.randint(0,5)
+                            error_probability = random.randint(0,7)
  
                         if error_probability == 1:
                             hero.random_movement()

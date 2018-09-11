@@ -8,7 +8,7 @@ from src.end_window import EndWindow
 #pygame.init()
 pygame.mixer.init()
 
-pygame.mixer.music.load('sounds/back4.ogg')
+pygame.mixer.music.load('sounds/back1.ogg')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.8)
 
