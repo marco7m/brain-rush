@@ -8,7 +8,7 @@ _image_library = {}
 class EndWindow:
     def __init__(self):
 
-        pygame.mixer.music.load('src/sounds/riso.wav')
+        pygame.mixer.music.load('sounds/riso.wav')
         pygame.mixer.music.play(0)
         
         screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y))
