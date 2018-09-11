@@ -4,6 +4,7 @@ import time
 import os
 from src.game_window import GameWindow
 from src.end_window import EndWindow
+from src.menu_window import GameMenu
 import src.data_harvest as data_harvest
 
 #pygame.init()
@@ -17,5 +18,6 @@ if not os.path.exists('data'):
     os.makedirs('data')
 
 data_harvest.player_name = 'Jorge'
+game_menu = GameMenu()
 game_window = GameWindow()
 end_window = EndWindow()

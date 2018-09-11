@@ -28,7 +28,7 @@ class GameWindow:
         score_text_surface = game_font.render('Pontos: '+str(score), False,(255,255,255))
 
         placar = 35
-        name = "Carlos"
+        name = "Carlitos"
         placar_text_surface = placar_font.render('Melhor Jogador: ' + name + ' - '+str(placar), False, (0,0,255))
 
         def get_image(path):
@@ -60,7 +60,6 @@ class GameWindow:
         pygame.time.set_timer(pygame.USEREVENT, 1000)
 
         screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y), pygame.FULLSCREEN)
-#        screen = pygame.display.set_mode((CONST.DISPLAY_SIZE_X, CONST.DISPLAY_SIZE_Y))
         done = False
         clock = pygame.time.Clock()
 
