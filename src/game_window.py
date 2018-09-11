@@ -152,10 +152,13 @@ class GameWindow:
                         done = True
                         
                         # salva os dados coletados
-                        pd.DataFrame(data_harvest.pressed_keys).to_csv("data/pressed_keys.csv",index=None,header=['PRESSED_KEY','TIME'])
-                        pd.DataFrame(data_harvest.random_events).to_csv("data/random_events.csv",index=None,header=['RANDOM_EVENT','TIME'])
-                        pd.DataFrame(data_harvest.hero_movement).to_csv("data/hero_movement.csv",index=None,header=['DIRECTION','SPEED','TIME'])
- 
+                        dir_path = data_harvest.player_name + "-" + str(datetime.datetime.now())
+                        os.makedirs('data/'+dir_path)
+                        pd.DataFrame(data_harvest.pressed_keys).to_csv("data/"+dir_path+"/pressed_keys.csv",index=None,header=['PRESSED_KEY','TIME'])
+                        pd.DataFrame(data_harvest.random_events).to_csv("data/"+dir_path+"/random_events.csv",index=None,header=['RANDOM_EVENT','TIME'])
+                        pd.DataFrame(data_harvest.hero_movement).to_csv("data/"+dir_path+"/hero_movement.csv",index=None,header=['DIRECTION','SPEED','TIME'])
+                        data_harvest.final_score = score
+                        pd.DataFrame([data_harvest.final_score]).to_csv("data/"+dir_path+"/"+data_harvest.player_name,index=None,header=['SCORE'])
             
             # pega as teclas pressionadas
             pressed = pygame.key.get_pressed()
