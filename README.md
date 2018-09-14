@@ -11,11 +11,11 @@ This experiment is the next part of a preview research, which drilldown report i
 
 Author: Marco Aurélio Martins Mijam
 
-Collaborator: Adam Henrique
+Collaborator: Adam Henrique Moreira Pinto
 
 Some songs written by: Rodrigo de Lima Araujo
 
-The visual design and artwork were made by Laryssa Valencise, whose works can be seen on her [Instagram]( https://www.instagram.com/valenssaize/)
+Visual design and artwork: [Laryssa Valencise]( https://www.instagram.com/valenssaize/)
 
 ## Acknowledgement
 
